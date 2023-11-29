@@ -1,3 +1,4 @@
+import gsap from 'gsap';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -78,7 +79,16 @@ const shaderMaterial = new THREE.ShaderMaterial({
 const mesh = new THREE.Points(particleGeometry, shaderMaterial);
 scene.add(mesh);
 
-camera.position.z = 5;
+camera.position.z = 1;
+
+window.addEventListener('load', (_event) => {
+  gsap.to(camera.position, {
+    duration: 3,
+    z: 7,
+    ease: 'sine.inOut',
+    delay: 0.8,
+  });
+});
 
 new OrbitControls(camera, renderer.domElement);
 
@@ -93,7 +103,12 @@ function animate() {
 }
 animate();
 
-document.body.addEventListener('click', () => {
+// document.body.addEventListener('click', () => {
+//   videoElement.play();
+// });
+
+// when video ready, play
+videoElement.addEventListener('canplay', () => {
   videoElement.play();
 });
 

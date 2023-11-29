@@ -10,5 +10,11 @@
 }
 
 body {
-  @include font-family-sans;
+  background-color: #000;
+  font-family: 'noka', Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+}
+
+[data-title] {
+  font-weight: 400;
 }

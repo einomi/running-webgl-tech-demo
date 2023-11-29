@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>
       {% block title %}
+
       {% endblock %}| Site Name
     </title>
     <meta name="viewport"
@@ -14,11 +15,13 @@
       <link rel="stylesheet" href="{{ STATIC_PATH }}/css/tailwind.css" />
       <link rel="stylesheet" href="{{ STATIC_PATH }}/css/styles.css" />
     {% endblock %}
+    <link rel="stylesheet" href="https://use.typekit.net/nqp3idg.css" />
   </head>
   <body>
     {% svg_sprite %}
 
     {% block content %}
+
     {% endblock %}
 
     {% block scripts %}
