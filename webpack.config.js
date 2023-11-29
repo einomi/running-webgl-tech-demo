@@ -1,9 +1,6 @@
 'use strict';
 const path = require('path');
 
-// eslint-disable-next-line no-unused-vars
-const webpack = require('webpack');
-
 const IS_PRODUCTION = require('./env').IS_PRODUCTION;
 
 const entryPoints = {
@@ -16,7 +13,7 @@ module.exports = {
     return acc;
   }, {}),
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist/js'),
     publicPath: '/js',
   },
@@ -26,6 +23,10 @@ module.exports = {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',
       },
+      {
+        test: /\.(glsl|vs|fs|vert|frag)$/,
+        type: 'asset/source',
+      },
     ],
   },
   devtool: IS_PRODUCTION ? undefined : 'eval-source-map',
@@ -33,6 +34,4 @@ module.exports = {
   optimization: {
     minimize: IS_PRODUCTION,
   },
-  // Uncomment this section if you want to use environment variables in your JS
-  // plugins: [new webpack.EnvironmentPlugin(['STATIC_PATH'])],
 };
