@@ -28,10 +28,10 @@ void main() {
   vec2 uv = (vPosition.xy + 5.0) / 10.0; // Transform position to UV space
 
   vec4 particleColor = texture2D(uParticleTexture, gl_PointCoord); // Use the particle texture
-  if (particleColor.a > 0.5) discard; // This makes the transparent part of the PNG not render
+  if (particleColor.a < 0.5) discard; // This makes the transparent part of the PNG not render
 
   vec4 videoColor = texture2D(uTexture, uv);
 
-  gl_FragColor = particleColor * videoColor; // Combine the particle color with video color
+  gl_FragColor = particleColor * videoColor * 0.5; // Combine the particle color with video color
 
 }

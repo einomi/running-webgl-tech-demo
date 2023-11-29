@@ -4,6 +4,7 @@ varying vec2 vUv;
 varying vec3 vPosition;
 
 uniform float uTime;
+uniform vec2 uMouse;
 
 float rand(vec2 co) {
   return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
@@ -28,13 +29,26 @@ void main() {
   vPosition = position;
 
   vec3 modPosition = position;
+
+  // Calculate offset based on mouse position
+  float distance = length(uMouse - modPosition.xy);
+  vec3 direction = normalize(modPosition - vec3(uMouse, 0.0));
+  // noise
+  float scatterStrength = 0.55 * noise2D(modPosition.xy * 0.15 + uTime * 0.1);
+
+  modPosition.xy += direction.xy * scatterStrength;
+
   // Modify the position with noise
-  modPosition.xy += noise2D(modPosition.xy * uTime) * 0.5;
+  float noise = noise2D(modPosition.xy * uTime);
+  modPosition.z += noise * 0.5;
+  modPosition.x += noise * 0.1;
+
+  modPosition.x *= -1.0;
 
   vec4 mvPosition = modelViewMatrix * vec4(modPosition, 1.0);
   vUv = position.xy * 0.5 + 0.5; // Map the position to UV space
 
-  gl_PointSize = size * 2.0; // Scale point size by the size attribute
+  gl_PointSize = size; // Scale point size by the size attribute
 
   gl_Position = projectionMatrix * mvPosition;
 }
