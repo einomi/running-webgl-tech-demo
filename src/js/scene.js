@@ -108,7 +108,7 @@ animate();
 // });
 
 // when video ready, play
-videoElement.addEventListener('canplay', () => {
+window.addEventListener('load', () => {
   videoElement.play();
 });
 
