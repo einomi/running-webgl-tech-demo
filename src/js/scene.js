@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 import vertexShader from './shaders/vertex.glsl';
 import fragmentShader from './shaders/fragment.glsl';
+import { isDevelopment } from './utils/is-development';
 
 const mouse = new THREE.Vector2(0, 0);
 
@@ -40,11 +41,13 @@ const particleCount = 250000; // Adjust as needed
 const particleGeometry = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
 
-const scatter = 8;
+const videoAspect = 960 / 540;
+const scatterY = 8;
+const scatterX = scatterY * videoAspect;
 
 for (let particleIndex = 0; particleIndex < particleCount; particleIndex += 1) {
-  positions[particleIndex * 3] = (Math.random() - 0.5) * scatter; // x
-  positions[particleIndex * 3 + 1] = (Math.random() - 0.5) * scatter; // y
+  positions[particleIndex * 3] = (Math.random() - 0.5) * scatterX; // x
+  positions[particleIndex * 3 + 1] = (Math.random() - 0.5) * scatterY; // y
   positions[particleIndex * 3 + 2] = Math.random() * 0.5; // z
 }
 
@@ -68,6 +71,8 @@ const shaderMaterial = new THREE.ShaderMaterial({
     uTime: { value: 0 },
     uParticleTexture: { value: particleTexture }, // New particle texture
     uMouse: { value: new THREE.Vector2(0, 0) },
+    uScatterX: { value: scatterX },
+    uScatterY: { value: scatterY },
   },
   vertexShader,
   fragmentShader,
@@ -79,7 +84,7 @@ const shaderMaterial = new THREE.ShaderMaterial({
 const mesh = new THREE.Points(particleGeometry, shaderMaterial);
 scene.add(mesh);
 
-camera.position.z = 1;
+camera.position.z = isDevelopment() ? 7 : 1;
 
 window.addEventListener('load', (_event) => {
   gsap.to(camera.position, {
@@ -113,8 +118,8 @@ window.addEventListener('load', () => {
 });
 
 document.addEventListener('mousemove', (event) => {
-  mouse.x = -((event.clientX / window.innerWidth) * 2 - 1) * (scatter / 2); // Scale to range [-5, 5]
-  mouse.y = -((event.clientY / window.innerHeight) * 2 - 1) * (scatter / 2); // Scale to range [-5, 5]
+  mouse.x = -((event.clientX / window.innerWidth) * 2 - 1) * (scatterX / 2); // Scale to range [-5, 5]
+  mouse.y = -((event.clientY / window.innerHeight) * 2 - 1) * (scatterY / 2); // Scale to range [-5, 5]
 });
 
 window.addEventListener('resize', () => {
