@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import vertexShader from './shaders/vertex.glsl';
 import fragmentShader from './shaders/fragment.glsl';
 import { isDevelopment } from './utils/is-development';
+import { throttle } from './utils/throttle';
 
 const mouse = new THREE.Vector2(0, 0);
 
@@ -124,18 +125,21 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
 });
 
-window.addEventListener('wheel', () => {
-  gsap.to(videoElement, {
-    duration: 0.2,
-    playbackRate: '+=0.05', // '+=0.1' is the same as 'playbackRate + 0.1
-    ease: defaultEasingFunc,
-    onComplete: () => {
-      gsap.to(videoElement, {
-        duration: 0.75,
-        playbackRate: 1,
-        ease: 'bounce.out',
-        overwrite: true,
-      });
-    },
-  });
-});
+window.addEventListener(
+  'wheel',
+  throttle(() => {
+    gsap.to(videoElement, {
+      duration: 0.3,
+      playbackRate: '+=0.3', // '+=0.1' is the same as 'playbackRate + 0.1
+      ease: defaultEasingFunc,
+      onComplete: () => {
+        gsap.to(videoElement, {
+          duration: 0.75,
+          playbackRate: 1,
+          ease: 'bounce.out',
+          overwrite: true,
+        });
+      },
+    });
+  }, 500)
+);
