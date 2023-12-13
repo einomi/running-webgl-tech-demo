@@ -5,6 +5,7 @@ import vertexShader from './shaders/vertex.glsl';
 import fragmentShader from './shaders/fragment.glsl';
 import { isDevelopment } from './utils/is-development';
 import { throttle } from './utils/throttle';
+import { add3DText } from './3d-text';
 
 const mouse = new THREE.Vector2(0, 0);
 
@@ -99,11 +100,15 @@ window.addEventListener('load', (_event) => {
 
 const aspectRatio = window.innerWidth / window.innerHeight;
 
+const { textUniforms } = add3DText(scene);
+
 function animate() {
   requestAnimationFrame(animate);
-  shaderMaterial.uniforms.uTime.value = performance.now() / 1000; // Update time
+  const time = performance.now() / 1000;
+  shaderMaterial.uniforms.uTime.value = time; // Update time
   shaderMaterial.uniforms.uMouse.value.x = mouse.x * aspectRatio;
   shaderMaterial.uniforms.uMouse.value.y = mouse.y;
+  textUniforms.uTime.value = time;
   renderer.render(scene, camera);
 }
 animate();
