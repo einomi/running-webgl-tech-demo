@@ -1,6 +1,5 @@
 import gsap from 'gsap';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 import vertexShader from './shaders/vertex.glsl';
 import fragmentShader from './shaders/fragment.glsl';
@@ -15,6 +14,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
+const defaultEasingFunc = 'sine.inOut';
 
 const canvas = document.querySelector('[data-canvas]');
 if (!canvas) {
@@ -90,12 +91,10 @@ window.addEventListener('load', (_event) => {
   gsap.to(camera.position, {
     duration: 3,
     z: 7,
-    ease: 'sine.inOut',
+    ease: defaultEasingFunc,
     delay: 0.8,
   });
 });
-
-new OrbitControls(camera, renderer.domElement);
 
 const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -108,18 +107,13 @@ function animate() {
 }
 animate();
 
-// document.body.addEventListener('click', () => {
-//   videoElement.play();
-// });
-
-// when video ready, play
 window.addEventListener('load', () => {
   videoElement.play();
 });
 
 document.addEventListener('mousemove', (event) => {
-  mouse.x = -((event.clientX / window.innerWidth) * 2 - 1) * (scatterX / 2); // Scale to range [-5, 5]
-  mouse.y = -((event.clientY / window.innerHeight) * 2 - 1) * (scatterY / 2); // Scale to range [-5, 5]
+  mouse.x = -((event.clientX / window.innerWidth) * 2 - 1) * (scatterX / 2);
+  mouse.y = -((event.clientY / window.innerHeight) * 2 - 1) * (scatterY / 2);
 });
 
 window.addEventListener('resize', () => {
@@ -128,4 +122,20 @@ window.addEventListener('resize', () => {
   renderer.setSize(width, height);
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
+});
+
+window.addEventListener('wheel', () => {
+  gsap.to(videoElement, {
+    duration: 3,
+    playbackRate: 2,
+    ease: defaultEasingFunc,
+    onComplete: () => {
+      gsap.to(videoElement, {
+        duration: 3,
+        playbackRate: 1,
+        ease: defaultEasingFunc,
+        overwrite: true,
+      });
+    },
+  });
 });

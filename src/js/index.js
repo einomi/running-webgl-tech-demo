@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 
 import './scene';
+import './scroll-behaviour';
 
 const titleElement = document.querySelector('[data-title]');
 
