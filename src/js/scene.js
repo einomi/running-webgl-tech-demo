@@ -126,14 +126,14 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('wheel', () => {
   gsap.to(videoElement, {
-    duration: 3,
-    playbackRate: 2,
+    duration: 0.2,
+    playbackRate: '+=0.05', // '+=0.1' is the same as 'playbackRate + 0.1
     ease: defaultEasingFunc,
     onComplete: () => {
       gsap.to(videoElement, {
-        duration: 3,
+        duration: 0.75,
         playbackRate: 1,
-        ease: defaultEasingFunc,
+        ease: 'bounce.out',
         overwrite: true,
       });
     },

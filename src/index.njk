@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block content %}
+  <canvas class="fixed top-0 left-0 w-full h-full" data-canvas></canvas>
   <div id="smooth-wrapper">
     <div id="smooth-content">
       <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center">
-        <canvas data-canvas></canvas>
         <video preload loop autoplay muted style="display: none;" data-video>
           <source src="/running-man.mp4" type="video/mp4" />
         </video>
