@@ -81,13 +81,10 @@ float snoise(vec2 v) {
 }
 
 void main() {
-  vec3 color = vec3(0.0);
-  color.r = vUv.x;
-  color.g = vUv.y;
-  color.b = abs(sin(uTime));
+  vec2 uv = vUv;
 
-  float n = snoise(vUv * 2.0 - uTime * 1.1);
-  float alpha = clamp(1.0 - n * 0.5, 0.0, 1.0);
+  vec3 color = vec3(1.0) * 0.9;
+  float alpha = 1.0;
 
   gl_FragColor = vec4(color, alpha);
 }
