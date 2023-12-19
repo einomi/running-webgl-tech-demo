@@ -2,6 +2,8 @@ uniform float uTime;
 varying vec2 vUv;
 varying vec3 vNormal;
 varying vec3 vPosition;
+uniform sampler2D uDisplacementFragMap;
+uniform float uProgress;
 
 //
 // Description : Array and textureless GLSL 2D simplex noise function.
@@ -83,8 +85,31 @@ float snoise(vec2 v) {
 void main() {
   vec2 uv = vUv;
 
+  vec2 texUv = uv;
+
+  // add noise to uv
+  float noiseFreq = 2.0;
+  float noiseAmp = 0.05 * 1.0;
+  vec2 noise = vec2(
+    snoise(vec2(1.0, uv.y * noiseFreq)) * noiseAmp,
+    snoise(vec2(1.0, uv.y * noiseFreq)) * noiseAmp
+  );
+  texUv += noise;
+
+  // scale uv
+  float scale = 0.1;
+  texUv *= scale;
+
+  vec4 displacement = texture2D(uDisplacementFragMap, vec2(texUv.x, texUv.y));
+
   vec3 color = vec3(1.0) * 0.9;
-  float alpha = 1.0;
+  float alpha = 0.0;
+
+  // add displacement to alpha
+  alpha += displacement.r * 2.0;
+
+  // mix alpha using uProgress
+  alpha = mix(alpha, 1.0, uProgress);
 
   gl_FragColor = vec4(color, alpha);
 }

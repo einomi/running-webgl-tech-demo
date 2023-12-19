@@ -15,7 +15,7 @@ void main() {
   position.x = position.x + uPositionX;
 
   // displacement
-  vec4 displacement = texture2D(uDisplacementMap, uv) - 0.5;
+  vec4 displacement = texture2D(uDisplacementMap, uv);
 
   float displacementValueX = displacement.r * uDisplacementScaleX;
   float displacementValueY = displacement.g * uDisplacementScaleY;

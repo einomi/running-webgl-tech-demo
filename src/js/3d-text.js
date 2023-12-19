@@ -6,14 +6,17 @@ import vertexShader from './shaders/text-vertex.glsl';
 import fragmentShader from './shaders/text-fragment.glsl';
 
 const textureLoader = new THREE.TextureLoader();
-const displacementMap = textureLoader.load('/displacement.jpg');
+const displacementMap = textureLoader.load('/displacement4.jpg');
+const displacementFragMap = textureLoader.load('/displacement5.jpg');
 
 const uniforms = {
   uTime: { value: 0 },
   uDisplacementMap: { value: displacementMap },
+  uDisplacementFragMap: { value: displacementFragMap },
   uDisplacementScaleX: { value: 15.0 },
   uDisplacementScaleY: { value: 30.0 },
   uPositionX: { value: 20.0 },
+  uProgress: { value: 0.0 },
 };
 
 /**
@@ -65,5 +68,12 @@ setTimeout(() => {
     value: 0.0,
     duration: 1.0,
     ease,
+  });
+
+  gsap.to(uniforms.uProgress, {
+    value: 1.0,
+    duration: 2,
+    ease,
+    delay: 0.1,
   });
 }, 500);
