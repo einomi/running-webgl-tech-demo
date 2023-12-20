@@ -91,10 +91,10 @@ camera.position.z = isDevelopment() ? 7 : 1;
 
 window.addEventListener('load', (_event) => {
   gsap.to(camera.position, {
-    duration: 3,
+    duration: 1.5,
     z: 7,
     ease: defaultEasingFunc,
-    delay: 0.8,
+    delay: 0.3,
   });
 });
 
@@ -130,6 +130,10 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
 });
 
+const defaultPlaybackRate = 0.75;
+gsap.set(videoElement, {
+  playbackRate: defaultPlaybackRate,
+});
 window.addEventListener(
   'wheel',
   throttle(() => {
@@ -140,7 +144,7 @@ window.addEventListener(
       onComplete: () => {
         gsap.to(videoElement, {
           duration: 0.75,
-          playbackRate: 1,
+          playbackRate: defaultPlaybackRate,
           ease: 'bounce.out',
           overwrite: true,
         });

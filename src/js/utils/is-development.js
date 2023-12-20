@@ -1,3 +1,4 @@
 export function isDevelopment() {
-  return process.env.NODE_ENV === 'development';
+  return false;
+  // return process.env.NODE_ENV === 'development';
 }

@@ -29,10 +29,14 @@ export function add3DText(scene) {
 
   // Set properties to configure:
   myText.text = 'JUST KEEP RUNNING';
-  myText.fontSize = 1.0;
+  myText.fontSize = 0.85;
   myText.font = '/fonts/Kanit-SemiBoldItalic.ttf';
-  myText.position.x = -2;
+  myText.position.x = 0;
+  myText.position.y = 1;
   myText.color = 0x9966ff;
+
+  // align center
+  myText.anchorX = 'center';
 
   // Create shader material
   myText.material = new THREE.ShaderMaterial({
@@ -49,31 +53,46 @@ export function add3DText(scene) {
   };
 }
 
-setTimeout(() => {
+window.addEventListener('load', () => {
   const ease = 'power4.out';
 
-  gsap.to(uniforms.uDisplacementScaleX, {
+  const tl = gsap.timeline({
+    delay: 0.75,
+  });
+
+  tl.to(uniforms.uDisplacementScaleX, {
     value: 0.0,
     duration: 1.0,
     ease,
   });
 
-  gsap.to(uniforms.uDisplacementScaleY, {
-    value: 0.0,
-    duration: 1.0,
-    ease,
-  });
+  tl.to(
+    uniforms.uDisplacementScaleY,
+    {
+      value: 0.0,
+      duration: 1.0,
+      ease,
+    },
+    0
+  );
 
-  gsap.to(uniforms.uPositionX, {
-    value: 0.0,
-    duration: 1.0,
-    ease,
-  });
+  tl.to(
+    uniforms.uPositionX,
+    {
+      value: 0.0,
+      duration: 1.0,
+      ease,
+    },
+    0
+  );
 
-  gsap.to(uniforms.uProgress, {
-    value: 1.0,
-    duration: 2,
-    ease: 'power4.out',
-    delay: 0.3,
-  });
-}, 500);
+  tl.to(
+    uniforms.uProgress,
+    {
+      value: 1.0,
+      duration: 2,
+      ease: 'power4.out',
+    },
+    0.3
+  );
+});
