@@ -37,6 +37,12 @@ void main() {
 
   vec4 videoColor = texture2D(uTexture, uv);
 
-  gl_FragColor = particleColor * videoColor * 0.5; // Combine the particle color with video color
+  vec4 finalColor = particleColor * videoColor;
+
+  // invert the color
+  finalColor =
+    vec4(finalColor.r * 0.2, finalColor.g * 0.8, finalColor.b * 2.0, 1.0) * 0.8;
+
+  gl_FragColor = finalColor; // Combine the particle color with video color
 
 }
