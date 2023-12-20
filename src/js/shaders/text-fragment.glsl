@@ -91,13 +91,13 @@ void main() {
   float noiseFreq = 2.0;
   float noiseAmp = 0.05 * 1.0;
   vec2 noise = vec2(
-    snoise(vec2(1.0, uv.y * noiseFreq)) * noiseAmp,
-    snoise(vec2(1.0, uv.y * noiseFreq)) * noiseAmp
+    snoise(vec2(uTime, uv.x * noiseFreq)) * noiseAmp,
+    snoise(vec2(uv.y * noiseFreq, -uTime)) * noiseAmp
   );
   texUv += noise;
 
   // scale uv
-  float scale = 0.1;
+  float scale = 0.7 * uProgress + 0.3;
   texUv *= scale;
 
   vec4 displacement = texture2D(uDisplacementFragMap, vec2(texUv.x, texUv.y));

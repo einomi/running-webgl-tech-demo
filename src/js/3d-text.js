@@ -73,7 +73,7 @@ setTimeout(() => {
   gsap.to(uniforms.uProgress, {
     value: 1.0,
     duration: 2,
-    ease,
-    delay: 0.1,
+    ease: 'power4.out',
+    delay: 0.3,
   });
 }, 500);
