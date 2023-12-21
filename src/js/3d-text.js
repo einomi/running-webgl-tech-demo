@@ -1,10 +1,20 @@
 import * as THREE from 'three';
 import { Text } from 'troika-three-text';
 import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 
 import vertexShader from './shaders/text-vertex.glsl';
 import fragmentShader from './shaders/text-fragment.glsl';
+import visibilitySensor from './utils/visibility-sensor';
 
+gsap.registerPlugin(ScrollTrigger);
+
+const headingHTMLElement = /** @type {HTMLElement} */ (
+  document.querySelector('[data-heading]')
+);
+if (!headingHTMLElement) {
+  throw new Error('Heading element not found');
+}
 const textureLoader = new THREE.TextureLoader();
 const displacementMap = textureLoader.load('/displacement4.jpg');
 const displacementFragMap = textureLoader.load('/displacement5.jpg');
@@ -53,11 +63,12 @@ export function add3DText(scene) {
   };
 }
 
-window.addEventListener('load', () => {
-  const ease = 'power4.out';
+const ease = 'power4.out';
 
+function showHeading({ delay = 0.75 } = { delay: 0.75 }) {
   const tl = gsap.timeline({
-    delay: 0.75,
+    delay,
+    overwrite: true,
   });
 
   tl.to(uniforms.uDisplacementScaleX, {
@@ -91,8 +102,69 @@ window.addEventListener('load', () => {
     {
       value: 1.0,
       duration: 2,
-      ease: 'power4.out',
+      ease,
     },
     0.3
   );
+}
+
+function hideHeading() {
+  const tl = gsap.timeline({
+    overwrite: true,
+  });
+
+  tl.to(
+    uniforms.uDisplacementScaleX,
+    {
+      value: 15.0,
+      duration: 0.8,
+      ease,
+    },
+    0.2
+  );
+
+  tl.to(
+    uniforms.uDisplacementScaleY,
+    {
+      value: 30.0,
+      duration: 0.8,
+      ease,
+    },
+    0.2
+  );
+
+  tl.to(
+    uniforms.uPositionX,
+    {
+      value: 20.0,
+      duration: 0.8,
+      ease,
+    },
+    0.2
+  );
+
+  tl.to(
+    uniforms.uProgress,
+    {
+      value: 0.0,
+      duration: 2,
+      ease,
+    },
+    0
+  );
+}
+
+window.addEventListener('load', () => {
+  showHeading();
+  createToggleVisibilityAnimation();
 });
+
+function createToggleVisibilityAnimation() {
+  visibilitySensor.observe(headingHTMLElement, ({ isVisible }) => {
+    if (isVisible) {
+      showHeading({ delay: 0.0 });
+    } else {
+      hideHeading();
+    }
+  });
+}

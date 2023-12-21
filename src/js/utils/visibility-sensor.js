@@ -18,7 +18,7 @@ class VisibilitySensor {
 
   constructor() {
     this.observer = new IntersectionObserver(this.update, {
-      rootMargin: '-10% 0px -50% 0px',
+      rootMargin: '-30% 0px -30% 0px',
     });
   }
 

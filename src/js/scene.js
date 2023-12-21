@@ -7,7 +7,7 @@ import { isDevelopment } from './utils/is-development';
 import { throttle } from './utils/throttle';
 import { add3DText } from './3d-text';
 
-const mouse = new THREE.Vector2(0, 0);
+const mouse = new THREE.Vector2(-10, -10);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -138,7 +138,7 @@ window.addEventListener(
   'wheel',
   throttle(() => {
     gsap.to(videoElement, {
-      duration: 0.3,
+      duration: 0.2,
       playbackRate: '+=0.3', // '+=0.1' is the same as 'playbackRate + 0.1
       ease: defaultEasingFunc,
       onComplete: () => {
@@ -150,5 +150,5 @@ window.addEventListener(
         });
       },
     });
-  }, 500)
+  }, 300)
 );
