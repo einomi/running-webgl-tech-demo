@@ -75,6 +75,7 @@ function showHeading({ delay = 0.75 } = { delay: 0.75 }) {
     value: 0.0,
     duration: 1.0,
     ease,
+    overwrite: true,
   });
 
   tl.to(
@@ -83,6 +84,7 @@ function showHeading({ delay = 0.75 } = { delay: 0.75 }) {
       value: 0.0,
       duration: 1.0,
       ease,
+      overwrite: true,
     },
     0
   );
@@ -93,6 +95,7 @@ function showHeading({ delay = 0.75 } = { delay: 0.75 }) {
       value: 0.0,
       duration: 1.0,
       ease,
+      overwrite: true,
     },
     0
   );
@@ -103,6 +106,7 @@ function showHeading({ delay = 0.75 } = { delay: 0.75 }) {
       value: 1.0,
       duration: 2,
       ease,
+      overwrite: true,
     },
     0.3
   );
@@ -119,6 +123,7 @@ function hideHeading() {
       value: 15.0,
       duration: 0.8,
       ease,
+      overwrite: true,
     },
     0.2
   );
@@ -129,6 +134,7 @@ function hideHeading() {
       value: 30.0,
       duration: 0.8,
       ease,
+      overwrite: true,
     },
     0.2
   );
@@ -139,6 +145,7 @@ function hideHeading() {
       value: 20.0,
       duration: 0.8,
       ease,
+      overwrite: true,
     },
     0.2
   );
@@ -149,6 +156,7 @@ function hideHeading() {
       value: 0.0,
       duration: 2,
       ease,
+      overwrite: true,
     },
     0
   );
