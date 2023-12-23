@@ -82,5 +82,3 @@ functions/*.zip
 # eleventy.js
 .cache/
 dist
-
-.npmrc
