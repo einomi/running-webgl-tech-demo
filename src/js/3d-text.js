@@ -7,6 +7,7 @@ import vertexShader from './shaders/text-vertex.glsl';
 import fragmentShader from './shaders/text-fragment.glsl';
 import visibilitySensor from './utils/visibility-sensor';
 import { env } from './modules/env';
+import { emitter } from './modules/event-emitter';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,7 +43,7 @@ export function add3DText(scene) {
     const width = env.viewportResolution.value.x;
 
     if (width < 400) {
-      return 0.33;
+      return 0.5;
     }
     if (width < 600) {
       return 0.38;
@@ -76,6 +77,14 @@ export function add3DText(scene) {
 
   // Update the rendering:
   myText.sync();
+
+  emitter.on('env:windowResized', () => {
+    myText.fontSize = getFontSize();
+    myText.position.x = 0;
+    myText.position.y = 1;
+    myText.anchorX = 'center';
+    myText.sync();
+  });
 
   return {
     textUniforms: uniforms,

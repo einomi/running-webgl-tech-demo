@@ -51,6 +51,11 @@ class Env {
 
     this.checkModernImageFormatsSupport();
 
+    document.addEventListener('DOMContentLoaded', () => {
+      updateEnvValues();
+      emitter.emit('env:windowResized');
+    });
+
     window.addEventListener(
       'resize',
       debounce(() => {
