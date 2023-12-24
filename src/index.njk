@@ -8,7 +8,13 @@
 
 {% block content %}
   <canvas class="fixed top-0 left-0 w-full h-full" data-canvas></canvas>
-  <video preload loop autoplay muted class="hidden fixed" data-video>
+  <video preload
+    loop
+    autoplay
+    muted
+    playsinline
+    class="hidden fixed"
+    data-video>
     <source src="/running-man.mp4" type="video/mp4" />
   </video>
   <div id="smooth-wrapper">
