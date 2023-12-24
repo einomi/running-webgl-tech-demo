@@ -6,6 +6,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import vertexShader from './shaders/text-vertex.glsl';
 import fragmentShader from './shaders/text-fragment.glsl';
 import visibilitySensor from './utils/visibility-sensor';
+import { env } from './modules/env';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,9 +38,23 @@ export function add3DText(scene) {
 
   scene.add(myText);
 
+  function getFontSize() {
+    const width = env.viewportResolution.value.x;
+    if (width < 600) {
+      return 0.3;
+    }
+    if (width < 768) {
+      return 0.55;
+    }
+    if (width < 1024) {
+      return 0.65;
+    }
+    return 0.85;
+  }
+
   // Set properties to configure:
   myText.text = 'JUST KEEP RUNNING';
-  myText.fontSize = 0.85;
+  myText.fontSize = getFontSize();
   myText.font = '/fonts/Kanit-SemiBoldItalic.ttf';
   myText.position.x = 0;
   myText.position.y = 1;

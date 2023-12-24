@@ -28,7 +28,7 @@ const renderer = new THREE.WebGLRenderer({
   antialias: true,
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
-const pixelRatio = window.devicePixelRatio;
+const pixelRatio = Math.min(window.devicePixelRatio, 2);
 renderer.setPixelRatio(pixelRatio);
 
 const videoElement = /** @type {HTMLVideoElement | undefined} */ (
@@ -40,7 +40,7 @@ if (!videoElement) {
 const texture = new THREE.VideoTexture(videoElement);
 
 // Particle system
-const particleCount = 250000; // Adjust as needed
+const particleCount = 150000; // Adjust as needed
 const particleGeometry = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
 
@@ -56,7 +56,7 @@ for (let particleIndex = 0; particleIndex < particleCount; particleIndex += 1) {
 
 const sizes = new Float32Array(particleCount);
 for (let particleIndex = 0; particleIndex < particleCount; particleIndex += 1) {
-  sizes[particleIndex] = Math.random() * 20 + 1;
+  sizes[particleIndex] = (Math.random() * 8 + 1) * (pixelRatio + 0.3);
 }
 particleGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
