@@ -41,20 +41,16 @@ export function add3DText(scene) {
 
   function getFontSize() {
     const width = env.viewportResolution.value.x;
+    const xlBreakpoint = 1920;
+    const maxSize = 0.5;
 
-    if (width < 400) {
-      return 0.5;
-    }
-    if (width < 600) {
-      return 0.38;
-    }
     if (width < 768) {
-      return 0.55;
+      return 0.9 * env.viewportAspectRatio;
     }
-    if (width < 1024) {
-      return 0.65;
+    if (width > xlBreakpoint) {
+      return (maxSize * env.viewportAspectRatio) / (width / xlBreakpoint);
     }
-    return 0.85;
+    return maxSize * env.viewportAspectRatio;
   }
 
   // Set properties to configure:

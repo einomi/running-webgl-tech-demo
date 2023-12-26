@@ -1,0 +1,23 @@
+.paragraph-container {
+  max-width: 80vw;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 5.5vw;
+  line-height: 1.5;
+  text-align: center;
+
+  @include media-md {
+    max-width: 80vw;
+    font-size: 3vw;
+  }
+
+  @include media-lg {
+    max-width: 50vw;
+    font-size: 2vw;
+  }
+
+  @include media-xl {
+    max-width: 1200px;
+    font-size: 44px;
+  }
+}

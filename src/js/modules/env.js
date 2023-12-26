@@ -7,6 +7,7 @@ import { emitter } from './event-emitter';
  * @property {{value: {x: number; y: number;}}} viewportResolution
  * @property {number} viewportAspectRatio
  * @property {boolean} isPortrait
+ * @property {boolean} isMobile
  * @property {boolean | undefined} browserSupportsWebp
  * @property {boolean | undefined} browserSupportsAvif
  * @property {boolean} imageFormatsSupportDetected
@@ -41,8 +42,7 @@ class Env {
         },
       };
       this.viewportAspectRatio =
-        this.viewportResolution.value.width /
-        this.viewportResolution.value.height;
+        this.viewportResolution.value.x / this.viewportResolution.value.y;
 
       this.isPortrait = this.viewportAspectRatio < 1;
     };

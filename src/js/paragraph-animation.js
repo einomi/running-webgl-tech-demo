@@ -9,14 +9,16 @@ class ParagraphAnimation {
   constructor() {
     this.paragraphElements = document.querySelectorAll('[data-paragraph]');
 
-    this.paragraphElements.forEach((paragraphElement) => {
-      const split = new SplitText(paragraphElement, { type: 'chars' });
-      visibilitySensor.observe(paragraphElement, ({ isVisible }) => {
-        if (isVisible) {
-          this.show(split);
-        } else {
-          this.hide(split);
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+      this.paragraphElements.forEach((paragraphElement) => {
+        const split = new SplitText(paragraphElement, { type: 'words,chars' });
+        visibilitySensor.observe(paragraphElement, ({ isVisible }) => {
+          if (isVisible) {
+            this.show(split);
+          } else {
+            this.hide(split);
+          }
+        });
       });
     });
   }
