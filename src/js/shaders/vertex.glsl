@@ -34,7 +34,7 @@ void main() {
   float distance = length(uMouse - modPosition.xy);
   vec3 direction = normalize(modPosition - vec3(uMouse, 0.0));
   // noise
-  float scatterStrength = 0.55 * noise2D(modPosition.xy * 0.15 + uTime * 0.1);
+  float scatterStrength = 0.25 * noise2D(modPosition.xy * 1.35 + uTime * 2.3);
 
   modPosition.xy += direction.xy * scatterStrength;
 

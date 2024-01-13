@@ -117,10 +117,24 @@ window.addEventListener('load', () => {
   videoElement.play();
 });
 
-document.addEventListener('mousemove', (event) => {
-  mouse.x = -((event.clientX / window.innerWidth) * 2 - 1) * (scatterX / 2);
-  mouse.y = -((event.clientY / window.innerHeight) * 2 - 1) * (scatterY / 2);
-});
+document.addEventListener(
+  'mousemove',
+  throttle(
+    /** @param {MouseEvent} event */ (event) => {
+      const x = -((event.clientX / window.innerWidth) * 2 - 1) * (scatterX / 2);
+      const y =
+        -((event.clientY / window.innerHeight) * 2 - 1) * (scatterY / 2);
+
+      gsap.to(mouse, {
+        duration: 0.35,
+        x,
+        y,
+        ease: 'sine.out',
+      });
+    },
+    50
+  )
+);
 
 window.addEventListener('resize', () => {
   const width = window.innerWidth;
