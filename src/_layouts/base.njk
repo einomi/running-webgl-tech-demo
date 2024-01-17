@@ -7,13 +7,28 @@
     </title>
     <meta name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <meta name="description" content="Set a proper description" />
+    <meta name="description"
+      content="A WebGL+GSAP Tech Demo about running, featuring words by Haruki Murakami" />
 
     {% block stylesheets %}
       <link rel="stylesheet" href="{{ STATIC_PATH }}/css/tailwind.css" />
       <link rel="stylesheet" href="{{ STATIC_PATH }}/css/styles.css" />
     {% endblock %}
+
     <link rel="stylesheet" href="https://use.typekit.net/aex1bds.css" />
+
+    <meta property="og:image"
+      content="https://running-tech-demo-einomi.netlify.app/sharing.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@aeinomi" />
+    <meta name="twitter:creator" content="@aeinomi" />
+    <meta name="twitter:title"
+      content="Just Keep Running | GSAP+WebGL Tech Demo" />
+    <meta name="twitter:description"
+      content="A WebGL+GSAP Tech Demo about running, featuring words by Haruki Murakami" />
+    <meta name="twitter:image"
+      content="https://running-tech-demo-einomi.netlify.app/sharing.jpg" />
   </head>
   <body>
     {% svg_sprite %}
